@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>منطقة الطالب - Shining</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;700;900&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg: #0b0f1f;
+            --card: #14192e;
+            --gold: #e0b437;
+            --text: #fff;
+            --muted: #b9bfd6;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Tajawal, sans-serif;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            overflow-x: hidden;
+            /* Prevent horizontal scroll from animations */
+        }
+
+        /* ===== ANIMATION CLASSES ===== */
+        .fade-in {
+            animation: fadeIn 1s ease-out forwards;
+        }
+
+        .slide-up {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: slideUp 0.8s ease-out forwards;
+        }
+
+        .slide-up-delay-1 {
+            animation-delay: 0.2s;
+        }
+
+        .slide-up-delay-2 {
+            animation-delay: 0.4s;
+        }
+
+        .slide-up-delay-3 {
+            animation-delay: 0.6s;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ===== NAVBAR ===== */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 999;
+            background: rgba(11, 15, 31, 0.7);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 15px 0;
+            transition: all 0.3s ease;
+        }
+
+        .logo {
+            position: absolute;
+            right: 50px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            text-decoration: none;
+        }
+
+        .logo-img-container {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 2px solid var(--gold);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #fff;
+            box-shadow: 0 0 15px rgba(224, 180, 55, 0.4);
+            animation: pulseGlow 2.5s infinite alternate ease-in-out;
+        }
+
+        @keyframes pulseGlow {
+            0% {
+                box-shadow: 0 0 10px rgba(224, 180, 55, 0.3);
+                transform: scale(1);
+            }
+            100% {
+                box-shadow: 0 0 25px rgba(224, 180, 55, 0.7);
+                transform: scale(1.05);
+            }
+        }
+
+        .logo-img-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo-text span.brand {
+            font-size: 28px;
+            font-weight: 800;
+            background: linear-gradient(to left, #e0b437, #f5d36a);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            line-height: 1.1;
+        }
+
+        .logo-text span.sub-brand {
+            font-size: 13px;
+            color: var(--muted);
+            font-weight: 400;
+        }
+
+        .nav-center {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 12px 35px;
+            border-radius: 14px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            padding: 10px 22px;
+            border-radius: 25px;
+            color: var(--muted);
+            font-size: 15px;
+            transition: all .3s ease;
+        }
+
+        .nav-links a:hover {
+            background: rgba(255, 255, 255, 0.08);
+            color: #fff;
+        }
+
+        .nav-links a.active {
+            background: #e0b437;
+            color: #000;
+            font-weight: 700;
+            box-shadow: 0 0 20px rgba(224, 180, 55, 0.4);
+        }
+
+        /* ===== HERO AREA ===== */
+        .student-area-header {
+            text-align: center;
+            padding-top: 180px;
+            margin-bottom: 80px;
+        }
+
+        .student-area-header h1 {
+            font-size: 48px;
+            font-weight: 800;
+            margin-bottom: 20px;
+        }
+
+        .student-area-header .underline {
+            width: 70px;
+            height: 4px;
+            background: var(--gold);
+            margin: 20px auto;
+            border-radius: 10px;
+        }
+
+        .student-area-header p {
+            color: var(--muted);
+            font-size: 18px;
+        }
+
+        /* ===== SERVICES SECTION ===== */
+        .services-section {
+            max-width: 1200px;
+            margin: 0 auto 100px;
+            padding: 0 20px;
+            flex-grow: 1;
+            width: 100%;
+        }
+
+        .section-title {
+            text-align: right;
+            margin-bottom: 40px;
+            font-size: 26px;
+            font-weight: 700;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 15px;
+        }
+
+        .section-title .line {
+            width: 50px;
+            height: 3px;
+            background: var(--gold);
+            border-radius: 10px;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .service-card {
+            background: #111526;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            padding: 40px 30px;
+            display: flex;
+            flex-direction: column;
+            transition: .4s;
+            position: relative;
+            overflow: hidden;
+            text-align: right;
+        }
+
+        .service-card:hover {
+            border-color: rgba(224, 180, 55, 0.4);
+            transform: translateY(-8px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+            background: #151a2f;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--gold);
+            opacity: 0;
+            transition: 0.4s;
+        }
+
+        .service-card:hover::before {
+            opacity: 1;
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-direction: row-reverse;
+            /* Align icon left, text right Arabic */
+        }
+
+        .card-icon {
+            width: 45px;
+            height: 45px;
+            background: rgba(224, 180, 55, 0.1);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gold);
+            border: 1px solid rgba(224, 180, 55, 0.2);
+            font-size: 20px;
+        }
+
+        .service-card h3 {
+            font-size: 22px;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        .service-card p {
+            color: var(--muted);
+            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 40px;
+            flex-grow: 1;
+        }
+
+        .card-link {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--gold);
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 700;
+            transition: 0.3s;
+            align-self: flex-start;
+            /* Align left */
+        }
+
+        .card-link:hover {
+            color: #f2c84b;
+            gap: 12px;
+        }
+
+        .card-link svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        /* ===== NEW FOOTER STYLE ===== */
+        .site-footer {
+            padding: 80px 50px 30px;
+            background: linear-gradient(to bottom, #0a1026 0%, #070b18 100%);
+            border-top: 1px solid rgba(224, 180, 55, 0.3);
+            box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.5);
+            color: var(--muted);
+            font-size: 15px;
+            margin-top: auto;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 50px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-column {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .footer-title {
+            color: var(--gold);
+            font-size: 22px;
+            font-weight: 800;
+            margin-bottom: 5px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 40px;
+            height: 2px;
+            background: var(--gold);
+            border-radius: 2px;
+        }
+
+        .footer-column p {
+            line-height: 1.8;
+            color: #aab0c5;
+        }
+
+        .footer-links {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .footer-links li a {
+            color: #aab0c5;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .footer-links li a:hover {
+            color: var(--gold);
+            transform: translateX(-5px);
+        }
+
+        .footer-bottom {
+            margin-top: 60px;
+            padding-top: 25px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .footer-bottom p {
+            color: #7b839e;
+            font-size: 14px;
+            margin: 0;
+        }
+        
+        @media (max-width: 768px) {
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+                justify-content: center;
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 900px) {
+            .logo {
+                position: static;
+                margin-bottom: 20px;
+            }
+
+            .navbar {
+                flex-direction: column;
+                background: var(--bg);
+                padding-bottom: 15px;
+            }
+
+            .nav-center {
+                padding: 10px 20px;
+            }
+
+            .student-area-header {
+                padding-top: 160px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- ===== NAVBAR ===== -->
+    <nav class="navbar fade-in">
+        <a href="index.html" class="logo">
+            <div class="logo-img-container">
+                <img src="https://static.wixstatic.com/media/b0ab01_95cbe4acde544efcb8900e3d874cf8d2~mv2.png/v1/fill/w_40,h_40,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/b0ab01_95cbe4acde544efcb8900e3d874cf8d2~mv2.png"
+                    alt="Shining Logo">
+            </div>
+            <div class="logo-text">
+                <span class="brand">Shining</span>
+                <span class="sub-brand">كلية القاسمي</span>
+            </div>
+        </a>
+        <div class="nav-center">
+            <ul class="nav-links">
+                <li><a href="index.html">الرئيسية</a></li>
+                <li><a href="interview.html">المقابلات</a></li>
+                <li><a href="focus.html">التركيز والإيمان</a></li>
+                <li><a href="student-compass.html">بوصلة الطالب</a></li>
+                <li><a href="student-area.html" class="active">منطقة الطالب</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- ===== HEADER ===== -->
+    <div class="student-area-header slide-up">
+        <h1>منطقة الطالب</h1>
+        <div class="underline"></div>
+        <p>مركز التحكم الخاص بك - اكتشف جميع المناطق والخدمات المخصصة للطلاب</p>
+    </div>
+
+    <!-- ===== SERVICES ===== -->
+    <div class="services-section">
+        <div class="section-title slide-up slide-up-delay-1">
+            الخدمات والأدوات
+            <div class="line"></div>
+        </div>
+
+        <div class="services-grid">
+
+            <!-- Card 1 -->
+            <div class="service-card slide-up slide-up-delay-1">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2"
+                            fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                            <polyline points="14 2 14 8 20 8"></polyline>
+                            <line x1="16" y1="13" x2="8" y2="13"></line>
+                            <line x1="16" y1="17" x2="8" y2="17"></line>
+                            <polyline points="10 9 9 9 8 9"></polyline>
+                        </svg>
+                    </div>
+                    <h3>إنشاء حساب طباعة</h3>
+                </div>
+                <p>إنشاء حساب خاص بالطابعات داخل الكلية.</p>
+                <a href="#" class="card-link">
+                    <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                        <polyline points="15 3 21 3 21 9"></polyline>
+                        <line x1="10" y1="14" x2="21" y2="3"></line>
+                    </svg>
+                    إبدأ التوجيه
+                </a>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="service-card slide-up slide-up-delay-2">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2"
+                            fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"></path>
+                            <path d="M2 12h20"></path>
+                        </svg>
+                    </div>
+                    <h3>الدخول إلى المودل</h3>
+                </div>
+                <p>الانتقال إلى منصة Moodle الخاصة بالكلية.</p>
+                <a href="https://www.qsm.ac.il/" class="card-link">
+                    <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                        <polyline points="15 3 21 3 21 9"></polyline>
+                        <line x1="10" y1="14" x2="21" y2="3"></line>
+                    </svg>
+                    افتح الآن
+                </a>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="service-card slide-up slide-up-delay-3">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2"
+                            fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                            <polyline points="14 2 14 8 20 8"></polyline>
+                            <line x1="12" y1="18" x2="12" y2="12"></line>
+                            <line x1="9" y1="15" x2="15" y2="15"></line>
+                        </svg>
+                    </div>
+                    <h3>إنشاء توجه</h3>
+                </div>
+                <p>أي خدمات وخطوات للاختيار واتخاذ التوجه المناسب.</p>
+                <a href="#" class="card-link">
+                    <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                        <polyline points="15 3 21 3 21 9"></polyline>
+                        <line x1="10" y1="14" x2="21" y2="3"></line>
+                    </svg>
+                    إبدأ التوجيه
+                </a>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="site-footer fade-in">
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3 class="footer-title">Shining</h3>
+                <p>منصة طلاب كلية القاسمي للحياة الجامعية والتميز الأكاديمي، نصنع المستقبل معاً.</p>
+            </div>
+            <div class="footer-column">
+                <h3 class="footer-title">تواصل معنا</h3>
+                <p>باقة الغربية - إسرائيل</p>
+                <p style="direction: ltr; text-align: right;">04-628-6888</p>
+                <p>info@qsm.ac.il</p>
+            </div>
+            <div class="footer-column">
+                <h3 class="footer-title">روابط</h3>
+                <ul class="footer-links">
+                    <li><a href="interview.html">المقابلات</a></li>
+                    <li><a href="focus.html">التركيز والإيمان</a></li>
+                    <li><a href="student-compass.html">بوصلة الطالب</a></li>
+                    <li><a href="student-area.html">منطقة الطالب</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2026 Shining - جميع الحقوق محفوظة</p>
+            <p>Founders: Mohamad Egbaria &amp; Ahmad Khaba</p>
+        </div>
+    </footer>
+</body>
+
+</html>

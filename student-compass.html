@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>بوصلة الطالب - Shining</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;700;900&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg: #0b0f1f;
+            --card: #14192e;
+            --gold: #e0b437;
+            --text: #fff;
+            --muted: #b9bfd6;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Tajawal, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* ===== ANIMATION CLASSES ===== */
+        .fade-in {
+            animation: fadeIn 1s ease-out forwards;
+        }
+        
+        .slide-up {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: slideUp 0.8s ease-out forwards;
+        }
+
+        .slide-up-delay-1 { animation-delay: 0.2s; }
+        .slide-up-delay-2 { animation-delay: 0.4s; }
+        .slide-up-delay-3 { animation-delay: 0.6s; }
+        .slide-up-delay-4 { animation-delay: 0.8s; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ===== NAVBAR ===== */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 999;
+            background: rgba(11, 15, 31, 0.7);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 15px 0;
+            transition: all 0.3s ease;
+        }
+
+        .logo {
+            position: absolute;
+            right: 50px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            text-decoration: none;
+        }
+
+        .logo-img-container {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 2px solid var(--gold);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #fff;
+            box-shadow: 0 0 15px rgba(224, 180, 55, 0.4);
+            animation: pulseGlow 2.5s infinite alternate ease-in-out;
+        }
+
+        @keyframes pulseGlow {
+            0% {
+                box-shadow: 0 0 10px rgba(224, 180, 55, 0.3);
+                transform: scale(1);
+            }
+            100% {
+                box-shadow: 0 0 25px rgba(224, 180, 55, 0.7);
+                transform: scale(1.05);
+            }
+        }
+
+        .logo-img-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo-text span.brand {
+            font-size: 28px;
+            font-weight: 800;
+            background: linear-gradient(to left, #e0b437, #f5d36a);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            line-height: 1.1;
+        }
+
+        .logo-text span.sub-brand {
+            font-size: 13px;
+            color: var(--muted);
+            font-weight: 400;
+        }
+
+        .nav-center {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 12px 35px;
+            border-radius: 14px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            padding: 10px 22px;
+            border-radius: 25px;
+            color: var(--muted);
+            font-size: 15px;
+            transition: all .3s ease;
+        }
+
+        .nav-links a:hover {
+            background: rgba(255, 255, 255, 0.08);
+            color: #fff;
+        }
+
+        .nav-links a.active {
+            background: #e0b437;
+            color: #000;
+            font-weight: 700;
+            box-shadow: 0 0 20px rgba(224, 180, 55, 0.4);
+        }
+
+        /* ===== MAIN VIEW ===== */
+        .compass-header {
+            text-align: center;
+            padding-top: 150px;
+        }
+
+        .compass-header h1 {
+            font-size: 44px;
+            font-weight: 800;
+        }
+
+        .compass-header .underline {
+            width: 70px;
+            height: 4px;
+            background: var(--gold);
+            margin: 20px auto;
+            border-radius: 10px;
+        }
+
+        .compass-header p {
+            color: var(--muted);
+            font-size: 16px;
+            margin-bottom: 50px;
+        }
+
+        /* SEARCH BAR */
+        .search-container {
+            max-width: 600px;
+            margin: 0 auto 70px;
+            padding: 0 20px;
+        }
+
+        .search-container input {
+            width: 100%;
+            padding: 20px 30px;
+            border-radius: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            background: rgba(255, 255, 255, 0.03);
+            color: white;
+            font-size: 15px;
+            outline: none;
+            transition: .3s;
+        }
+
+        .search-container input::placeholder {
+            color: #7b839e;
+        }
+
+        .search-container input:focus {
+            border-color: var(--gold);
+            background: rgba(255, 255, 255, 0.06);
+            box-shadow: 0 0 20px rgba(224, 180, 55, 0.1);
+        }
+
+        /* SECTION TITLE */
+        .section-title {
+            max-width: 1200px;
+            margin: 0 auto 30px;
+            font-size: 22px;
+            font-weight: 700;
+            text-align: right;
+            padding: 0 20px;
+        }
+
+        /* RANGES GRID */
+        .ranges-container {
+            max-width: 1200px;
+            margin: 0 auto 100px;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
+
+        .range-card {
+            background: #121626;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            border-radius: 15px;
+            padding: 50px 30px;
+            text-align: center;
+            cursor: pointer;
+            transition: .3s;
+        }
+
+        .range-card:hover {
+            border-color: rgba(224, 180, 55, 0.3);
+            background: #161c33;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .range-card h3 {
+            font-size: 24px;
+            margin-bottom: 25px;
+            color: #fff;
+            font-weight: 700;
+        }
+
+        .range-card p {
+            color: var(--gold);
+            font-size: 12px;
+            opacity: 0.8;
+            transition: .3s;
+        }
+
+        .range-card:hover p {
+            opacity: 1;
+        }
+
+        /* ===== ROOM CARDS (SMALL CARDS) & GRID ===== */
+        .rooms-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 30px;
+            padding: 0 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .room-card {
+            background: var(--card);
+            border-radius: 25px;
+            height: 200px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            transition: .4s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .room-card::after {
+            content: "▶";
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            background: rgba(224, 180, 55, 0.15);
+            color: var(--gold);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            font-size: 24px;
+            opacity: 0;
+            transition: .4s;
+        }
+
+        .room-card:hover {
+            border-color: var(--gold);
+            box-shadow: 0 0 40px rgba(224, 180, 55, 0.2);
+        }
+
+        .room-card:hover::after {
+            opacity: 1;
+        }
+
+        .room-card span {
+            display: block;
+            color: var(--muted);
+            font-size: 16px;
+            margin-bottom: 5px;
+            z-index: 2;
+        }
+
+        .room-card h4 {
+            font-size: 36px;
+            color: white;
+            margin: 0;
+            font-weight: 700;
+            z-index: 2;
+        }
+
+        /* ===== ROOMS VIEW CONTAINER ===== */
+        .rooms-view {
+            display: none;
+            max-width: 1200px;
+            margin: 150px auto 100px;
+        }
+
+        .rooms-header-container {
+            position: relative;
+            margin-bottom: 70px;
+            text-align: center;
+            padding: 0 20px;
+        }
+
+        .back-link {
+            position: absolute;
+            top: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            padding: 12px 25px;
+            border-radius: 30px;
+            color: var(--gold);
+            cursor: pointer;
+            transition: .3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .back-link:hover {
+            background: var(--gold);
+            color: #000;
+        }
+
+        .rooms-title-container {
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .rooms-title {
+            font-size: 46px;
+            font-weight: 800;
+        }
+        
+        .rooms-title-container .line {
+            width: 70px;
+            height: 4px;
+            background: var(--gold);
+            margin-top: 20px;
+            border-radius: 10px;
+        }
+
+        /* ===== SEARCH RESULTS VIEW ===== */
+        #searchResults {
+            display: none;
+            margin-bottom: 100px;
+        }
+
+        /* ===== MODAL ===== */
+        .modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.85);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+        }
+
+        .modal-content {
+            width: 85%;
+            max-width: 900px;
+            max-height: 90vh;
+            background: #111;
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .close {
+            cursor: pointer;
+            font-size: 22px;
+        }
+
+        .modal video {
+            width: 100%;
+            max-height: calc(90vh - 60px);
+            outline: none;
+            background: #000;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .ranges-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .ranges-container {
+                grid-template-columns: 1fr;
+            }
+            .rooms-title {
+                font-size: 36px;
+            }
+            .compass-header h1 {
+                font-size: 36px;
+            }
+            .rooms-grid {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            }
+            .room-card {
+                height: 150px;
+            }
+        }
+
+        /* ===== NEW FOOTER STYLE ===== */
+        .site-footer {
+            padding: 80px 50px 30px;
+            background: linear-gradient(to bottom, #0a1026 0%, #070b18 100%);
+            border-top: 1px solid rgba(224, 180, 55, 0.3);
+            box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.5);
+            color: var(--muted);
+            font-size: 15px;
+            margin-top: auto;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 50px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-column {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .footer-title {
+            color: var(--gold);
+            font-size: 22px;
+            font-weight: 800;
+            margin-bottom: 5px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 40px;
+            height: 2px;
+            background: var(--gold);
+            border-radius: 2px;
+        }
+
+        .footer-column p {
+            line-height: 1.8;
+            color: #aab0c5;
+        }
+
+        .footer-links {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .footer-links li a {
+            color: #aab0c5;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .footer-links li a:hover {
+            color: var(--gold);
+            transform: translateX(-5px);
+        }
+
+        .footer-bottom {
+            margin-top: 60px;
+            padding-top: 25px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .footer-bottom p {
+            color: #7b839e;
+            font-size: 14px;
+            margin: 0;
+        }
+        
+        @media (max-width: 768px) {
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- ===== NAVBAR ===== -->
+    <nav class="navbar fade-in">
+        <a href="index.html" class="logo">
+            <div class="logo-img-container">
+                <img src="https://static.wixstatic.com/media/b0ab01_95cbe4acde544efcb8900e3d874cf8d2~mv2.png/v1/fill/w_40,h_40,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/b0ab01_95cbe4acde544efcb8900e3d874cf8d2~mv2.png" alt="Shining Logo">
+            </div>
+            <div class="logo-text">
+                <span class="brand">Shining</span>
+                <span class="sub-brand">كلية القاسمي</span>
+            </div>
+        </a>
+        <div class="nav-center">
+            <ul class="nav-links">
+                <li><a href="index.html">الرئيسية</a></li>
+                <li><a href="interview.html">المقابلات</a></li>
+                <li><a href="focus.html">التركيز والإيمان</a></li>
+                <li><a href="student-compass.html" class="active">بوصلة الطالب</a></li>
+                <li><a href="student-area.html">منطقة الطالب</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- ===== MAIN VIEW ===== -->
+    <div id="mainView">
+        <div class="compass-header slide-up">
+            <h1>بوصلة الطالب</h1>
+            <div class="underline"></div>
+            <p>نظام ذكي للتنقل - اكتشف جميع الغرف والمرافق المتاحة في الحرم الجامعي</p>
+        </div>
+
+        <div class="search-container slide-up slide-up-delay-1">
+            <input type="text" placeholder="ابحث عن رقم الغرفة (مثال: 418)..." id="searchInput" oninput="filterRanges()">
+        </div>
+
+        <!-- SEARCH RESULTS -->
+        <div id="searchResults" class="slide-up slide-up-delay-2">
+            <div class="section-title">نتائج البحث</div>
+            <div class="rooms-grid" id="searchRoomsGrid"></div>
+        </div>
+
+        <!-- RANGES -->
+        <div id="rangesSection" class="slide-up slide-up-delay-2">
+            <div class="section-title">نطاقات الغرف</div>
+            <div class="ranges-container" id="rangesContainer"></div>
+        </div>
+    </div>
+
+    <!-- ===== ROOMS VIEW ===== -->
+    <div id="roomsView" class="rooms-view">
+        <div class="rooms-header-container">
+            <button class="back-link" onclick="goBack()">&larr; العودة</button>
+            <div class="rooms-title-container">
+                <div class="rooms-title" id="roomsTitle"></div>
+                <div class="line"></div>
+            </div>
+        </div>
+        
+        <div class="rooms-grid" id="roomsGrid">
+            <!-- Room Cards Injected by JS -->
+        </div>
+    </div>
+
+    <!-- ===== MODAL ===== -->
+    <div class="modal" id="videoModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span id="videoTitle"></span>
+                <span class="close" onclick="closeVideo()">✕</span>
+            </div>
+            <video id="videoPlayer" controls></video>
+        </div>
+    </div>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="site-footer fade-in">
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3 class="footer-title">Shining</h3>
+                <p>منصة طلاب كلية القاسمي للحياة الجامعية والتميز الأكاديمي، نصنع المستقبل معاً.</p>
+            </div>
+            <div class="footer-column">
+                <h3 class="footer-title">تواصل معنا</h3>
+                <p>باقة الغربية - إسرائيل</p>
+                <p style="direction: ltr; text-align: right;">04-628-6888</p>
+                <p>info@qsm.ac.il</p>
+            </div>
+            <div class="footer-column">
+                <h3 class="footer-title">روابط</h3>
+                <ul class="footer-links">
+                    <li><a href="interview.html">المقابلات</a></li>
+                    <li><a href="focus.html">التركيز والإيمان</a></li>
+                    <li><a href="student-compass.html">بوصلة الطالب</a></li>
+                    <li><a href="student-area.html">منطقة الطالب</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2026 Shining - جميع الحقوق محفوظة</p>
+            <p>Founders: Mohamad Egbaria &amp; Ahmad Khaba</p>
+        </div>
+    </footer>
+
+    <script>
+        const ranges = [
+            { id: '416-424', title: '416 - 424', rooms: [416, 417, 418, 419, 420, 421, 422, 423, 424] },
+            { id: '450-456', title: '450 - 456', rooms: [450, 451, 452, 453, 454, 455, 456] },
+            { id: '473-476', title: '473 - 476', rooms: [473, 474, 475, 476] },
+            { id: '107-113', title: '113 - 107', rooms: [107, 108, 110, 111, 112, 113] },
+            { id: 'facilities', title: 'المرافق العامة', rooms: ['مصلى نساء', 'قاعه المؤتمرات', 'بيت الطالب'] },
+            { id: 'labs', title: 'مختبرات العلوم', rooms: ['مختبرات العلوم'] }
+        ];
+
+        function renderRanges() {
+            const container = document.getElementById('rangesContainer');
+            container.innerHTML = '';
+            ranges.forEach(range => {
+                const card = document.createElement('div');
+                card.className = 'range-card';
+                card.onclick = () => showRooms(range.id);
+                if (range.id === 'facilities' || range.id === 'labs') {
+                    card.innerHTML = `
+                        <h3><span dir="ltr">${range.title}</span></h3>
+                        <p>اضغط هنا لعرض خريطة ${range.title}</p>
+                    `;
+                } else {
+                    card.innerHTML = `
+                        <h3>غرف <span dir="ltr">${range.title}</span></h3>
+                        <p>اضغط هنا لعرض خريطة الغرف</p>
+                    `;
+                }
+                container.appendChild(card);
+            });
+        }
+
+        function filterRanges() {
+            const query = document.getElementById('searchInput').value.trim();
+            const rangesSection = document.getElementById('rangesSection');
+            const searchResults = document.getElementById('searchResults');
+            
+            if (query === '') {
+                rangesSection.style.display = 'block';
+                searchResults.style.display = 'none';
+                return;
+            }
+            
+            const allRooms = [];
+            ranges.forEach(r => r.rooms.forEach(room => {
+                if (!allRooms.includes(room)) allRooms.push(room);
+            }));
+            
+            const filteredRooms = allRooms.filter(r => r.toString().includes(query));
+            
+            if (filteredRooms.length > 0) {
+                rangesSection.style.display = 'none';
+                searchResults.style.display = 'block';
+                
+                const searchRoomsGrid = document.getElementById('searchRoomsGrid');
+                searchRoomsGrid.innerHTML = '';
+                filteredRooms.forEach(room => {
+                    searchRoomsGrid.appendChild(createRoomCard(room));
+                });
+            } else {
+                rangesSection.style.display = 'none';
+                searchResults.style.display = 'block';
+                document.getElementById('searchRoomsGrid').innerHTML = '<p style="color:var(--muted); text-align:center; grid-column: 1/-1;">لا توجد غرف مطابقة لبحثك.</p>';
+            }
+        }
+
+        function createRoomCard(room) {
+            const roomCard = document.createElement('div');
+            roomCard.className = 'room-card';
+            
+            let videoPath = `room videos/${room}.mp4`;
+            let title = `غرفة ${room}`;
+            let labelHtml = `<span>غرفة</span>`;
+            let nameHtml = `<h4>${room}</h4>`;
+
+            if (room === 'مصلى نساء') {
+                videoPath = 'room videos/pray.mp4';
+                title = 'مصلى نساء';
+                labelHtml = '';
+                nameHtml = `<h4 style="font-size: 28px;">مصلى نساء</h4>`;
+            } else if (room === 'قاعه المؤتمرات') {
+                videoPath = 'room videos/camp.mp4';
+                title = 'قاعه المؤتمرات';
+                labelHtml = '';
+                nameHtml = `<h4 style="font-size: 24px;">قاعه المؤتمرات</h4>`;
+            } else if (room === 'بيت الطالب') {
+                videoPath = 'room videos/St.mp4';
+                title = 'بيت الطالب';
+                labelHtml = '';
+                nameHtml = `<h4 style="font-size: 28px;">بيت الطالب</h4>`;
+            } else if (room === 'مختبرات العلوم') {
+                videoPath = 'video/chim.mp4';
+                title = 'مختبرات العلوم';
+                labelHtml = '';
+                nameHtml = `<h4 style="font-size: 24px;">مختبرات العلوم</h4>`;
+            }
+
+            roomCard.onclick = () => openVideo(title, videoPath);
+            roomCard.innerHTML = `
+                ${labelHtml}
+                ${nameHtml}
+            `;
+            return roomCard;
+        }
+
+        function showRooms(id) {
+            const range = ranges.find(r => r.id === id);
+            
+            document.getElementById('mainView').style.display = 'none';
+            document.getElementById('roomsView').style.display = 'block';
+            window.scrollTo(0, 0); 
+            
+            if (id === 'facilities' || id === 'labs') {
+                document.getElementById('roomsTitle').innerHTML = `<span dir="ltr">${range.title}</span>`;
+            } else {
+                document.getElementById('roomsTitle').innerHTML = `غرف <span dir="ltr">${range.title}</span>`;
+            }
+            
+            const grid = document.getElementById('roomsGrid');
+            grid.innerHTML = '';
+            
+            range.rooms.forEach(room => {
+                grid.appendChild(createRoomCard(room));
+            });
+        }
+
+        function goBack() {
+            document.getElementById('roomsView').style.display = 'none';
+            document.getElementById('mainView').style.display = 'block';
+            window.scrollTo(0, 0); 
+        }
+
+        function openVideo(title, src) {
+            document.getElementById("videoModal").style.display = "flex";
+            document.getElementById("videoTitle").innerText = title;
+            document.getElementById("videoPlayer").src = src;
+        }
+
+        function closeVideo() {
+            document.getElementById("videoModal").style.display = "none";
+            document.getElementById("videoPlayer").pause();
+        }
+
+        window.onload = renderRanges;
+    </script>
+</body>
+
+</html>

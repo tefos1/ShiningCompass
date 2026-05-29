@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>التركيز والإيمان - Shining</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;700;900&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg: #0b0f1f;
+            --card: #14192e;
+            --gold: #e0b437;
+            --text: #fff;
+            --muted: #b9bfd6;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Tajawal, sans-serif;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* ===== ANIMATION CLASSES ===== */
+        .fade-in {
+            animation: fadeIn 1s ease-out forwards;
+        }
+        
+        .slide-up {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: slideUp 0.8s ease-out forwards;
+        }
+
+        .slide-up-delay-1 { animation-delay: 0.2s; }
+        .slide-up-delay-2 { animation-delay: 0.4s; }
+        .slide-up-delay-3 { animation-delay: 0.6s; }
+        .slide-up-delay-4 { animation-delay: 0.8s; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ===== NAVBAR ===== */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 999;
+            background: rgba(11, 15, 31, 0.7);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 15px 0;
+            transition: all 0.3s ease;
+        }
+
+        .logo {
+            position: absolute;
+            right: 50px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            text-decoration: none;
+        }
+
+        .logo-img-container {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 2px solid var(--gold);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #fff;
+            box-shadow: 0 0 15px rgba(224, 180, 55, 0.4);
+            animation: pulseGlow 2.5s infinite alternate ease-in-out;
+        }
+
+        @keyframes pulseGlow {
+            0% {
+                box-shadow: 0 0 10px rgba(224, 180, 55, 0.3);
+                transform: scale(1);
+            }
+            100% {
+                box-shadow: 0 0 25px rgba(224, 180, 55, 0.7);
+                transform: scale(1.05);
+            }
+        }
+
+        .logo-img-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo-text span.brand {
+            font-size: 28px;
+            font-weight: 800;
+            background: linear-gradient(to left, #e0b437, #f5d36a);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            line-height: 1.1;
+        }
+
+        .logo-text span.sub-brand {
+            font-size: 13px;
+            color: var(--muted);
+            font-weight: 400;
+        }
+
+        .nav-center {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 12px 35px;
+            border-radius: 14px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            padding: 10px 22px;
+            border-radius: 25px;
+            color: #b9bfd6;
+            font-size: 15px;
+            transition: all .3s ease;
+        }
+
+        .nav-links a:hover {
+            background: rgba(255, 255, 255, 0.08);
+            color: #fff;
+        }
+
+        .nav-links a.active {
+            background: #e0b437;
+            color: #000;
+            font-weight: 700;
+            box-shadow: 0 0 20px rgba(224, 180, 55, 0.4);
+        }
+
+        /* ===== HERO ===== */
+        .focus-container {
+            padding-top: 150px;
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .focus-title {
+            font-size: 48px;
+            margin-bottom: 20px;
+            color: var(--text);
+            font-weight: 800;
+        }
+
+        .underline {
+            width: 80px;
+            height: 4px;
+            background: var(--gold);
+            margin: 20px auto;
+            border-radius: 10px;
+        }
+
+        /* ===== CONTENT ===== */
+        .container {
+            width: 90%;
+            max-width: 1000px;
+            margin: 0 auto;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+            padding-bottom: 80px;
+        }
+
+        /* QUOTE SECTION */
+        .quote-section {
+            background: var(--card);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 50px 30px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .quote-section::before {
+            content: '"';
+            position: absolute;
+            top: -20px;
+            right: 40px;
+            font-size: 150px;
+            color: rgba(224, 180, 55, 0.1);
+            font-family: serif;
+        }
+
+        #quoteText {
+            font-size: 32px;
+            line-height: 1.6;
+            margin-bottom: 30px;
+            min-height: 90px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gold);
+            font-weight: 700;
+        }
+
+        .btn-reload {
+            background: var(--gold);
+            color: #000;
+            border: none;
+            padding: 14px 40px;
+            border-radius: 30px;
+            font-size: 18px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-reload:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(224, 180, 55, 0.4);
+            background: #f2c84b;
+        }
+
+        .btn-reload svg {
+            width: 20px;
+            height: 20px;
+            transition: transform 0.5s;
+        }
+
+        .btn-reload:active svg {
+            transform: rotate(180deg);
+        }
+
+        /* VIDEO SECTION */
+        .video-section {
+            background: var(--card);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .video-section h2 {
+            font-size: 28px;
+            margin-bottom: 30px;
+            color: var(--text);
+            font-weight: 700;
+        }
+
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            /* 16:9 aspect ratio */
+            height: 0;
+            overflow: hidden;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* ===== NEW FOOTER STYLE ===== */
+        .site-footer {
+            padding: 80px 50px 30px;
+            background: linear-gradient(to bottom, #0a1026 0%, #070b18 100%);
+            border-top: 1px solid rgba(224, 180, 55, 0.3);
+            box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.5);
+            color: var(--muted);
+            font-size: 15px;
+            margin-top: auto;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 50px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-column {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .footer-title {
+            color: var(--gold);
+            font-size: 22px;
+            font-weight: 800;
+            margin-bottom: 5px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 40px;
+            height: 2px;
+            background: var(--gold);
+            border-radius: 2px;
+        }
+
+        .footer-column p {
+            line-height: 1.8;
+            color: #aab0c5;
+        }
+
+        .footer-links {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .footer-links li a {
+            color: #aab0c5;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .footer-links li a:hover {
+            color: var(--gold);
+            transform: translateX(-5px);
+        }
+
+        .footer-bottom {
+            margin-top: 60px;
+            padding-top: 25px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .footer-bottom p {
+            color: #7b839e;
+            font-size: 14px;
+            margin: 0;
+        }
+        
+        @media (max-width: 768px) {
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!--  NAVBAR  -->
+    <nav class="navbar fade-in">
+        <a href="index.html" class="logo">
+            <div class="logo-img-container">
+                <img src="https://static.wixstatic.com/media/b0ab01_95cbe4acde544efcb8900e3d874cf8d2~mv2.png/v1/fill/w_40,h_40,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/b0ab01_95cbe4acde544efcb8900e3d874cf8d2~mv2.png" alt="Shining Logo">
+            </div>
+            <div class="logo-text">
+                <span class="brand">Shining</span>
+                <span class="sub-brand">كلية القاسمي</span>
+            </div>
+        </a>
+        <div class="nav-center">
+            <ul class="nav-links">
+                <li><a href="index.html">الرئيسية</a></li>
+                <li><a href="interview.html">المقابلات</a></li>
+                <li><a href="focus.html" class="active">التركيز والإيمان</a></li>
+                <li><a href="student-compass.html">بوصلة الطالب</a></li>
+                <li><a href="student-area.html">منطقة الطالب</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <div class="focus-container slide-up">
+        <h1 class="focus-title">التركيز والإيمان</h1>
+        <div class="underline"></div>
+        <p style="color: var(--muted); font-size: 20px;">مساحة للهدوء وتجديد الطاقة الإيجابية</p>
+    </div>
+
+    <!-- CONTENT -->
+    <div class="container">
+        <!-- QUOTE SECTION -->
+        <div class="quote-section slide-up slide-up-delay-1">
+            <div id="quoteText">...جاري تحميل العبارة...</div>
+            <button class="btn-reload" onclick="generateQuote()">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <polyline points="23 4 23 10 17 10"></polyline>
+                    <polyline points="1 20 1 14 7 14"></polyline>
+                    <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10"></path>
+                    <path d="M20.49 15a9 9 0 0 1-14.85 3.36L1 14"></path>
+                </svg>
+                عبارة جديدة
+            </button>
+        </div>
+
+        <!-- VIDEO SECTION -->
+        <div class="video-section slide-up slide-up-delay-2">
+            <h2>قرآن للتركيز</h2>
+            <div class="video-container" style="background: #000;">
+                <video src="video/qaran.mp4" controls style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; outline: none; border-radius: 15px;"></video>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="site-footer fade-in">
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3 class="footer-title">Shining</h3>
+                <p>منصة طلاب كلية القاسمي للحياة الجامعية والتميز الأكاديمي، نصنع المستقبل معاً.</p>
+            </div>
+
+            <div class="footer-column">
+                <h3 class="footer-title">تواصل معنا</h3>
+                <p>باقة الغربية - إسرائيل</p>
+                <p style="direction: ltr; text-align: right;">04-628-6888</p>
+                <p>info@qsm.ac.il</p>
+            </div>
+
+            <div class="footer-column">
+                <h3 class="footer-title">روابط</h3>
+                <ul class="footer-links">
+                    <li><a href="interview.html">المقابلات</a></li>
+                    <li><a href="focus.html">التركيز والإيمان</a></li>
+                    <li><a href="student-compass.html">بوصلة الطالب</a></li>
+                    <li><a href="student-area.html">منطقة الطالب</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>© 2026 Shining - جميع الحقوق محفوظة</p>
+            <p>Founders: Mohamad Egbaria &amp; Ahmad Khaba</p>
+        </div>
+    </footer>
+
+    <script>
+        const quotes = [
+            "إن مع العسر يسراً..",
+            "لا تحزن إن الله معنا",
+            "وما توفيقي إلا بالله",
+            "استعن بالله ولا تعجز",
+            "سيجعل الله بعد عسر يسراً",
+            "فاصبر إن وعد الله حق",
+            "ومن يتق الله يجعل له مخرجاً ويرزقه من حيث لا يحتسب",
+            "رحلة الألف ميل تبدأ بخطوة، فتوكل على الله وانطلق",
+            "كل متوقع آت، فتوقع ما تتمنى",
+            "تفاءلوا بالخير تجدوه",
+            "لا يكلف الله نفساً إلا وسعها",
+            "إن الله يعلم القلب النقي، ويسمع الصوت الخفي، فادعُه يستجب لك."
+        ];
+
+        function generateQuote() {
+            const randomIndex = Math.floor(Math.random() * quotes.length);
+            const quoteElement = document.getElementById('quoteText');
+
+            // إضافة تأثير اختفاء وظهور بسيط
+            quoteElement.style.opacity = 0;
+
+            setTimeout(() => {
+                quoteElement.textContent = quotes[randomIndex];
+                quoteElement.style.opacity = 1;
+                quoteElement.style.transition = "opacity 0.5s ease";
+            }, 300);
+        }
+
+        // Generate a quote on page load
+        window.onload = generateQuote;
+    </script>
+</body>
+
+</html>

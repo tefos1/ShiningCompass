@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shining | منصة طلاب كلية القاسمي</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;700;900&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg: #0b0f1f;
+            --card: #14192e;
+            --gold: #e0b437;
+            --text: #fff;
+            --muted: #b9bfd6;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Tajawal
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text)
+        }
+
+        /* ===== NAVBAR ===== */
+        /* ===== NAVBAR BASE ===== */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 999;
+            background: rgba(11, 15, 31, 0.7);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 15px 0;
+            transition: all 0.3s ease;
+        }
+
+        /* ===== LOGO RIGHT ===== */
+        .logo {
+            position: absolute;
+            right: 50px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            text-decoration: none;
+        }
+
+        .logo-img-container {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 2px solid var(--gold);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #fff;
+            box-shadow: 0 0 15px rgba(224, 180, 55, 0.4);
+            animation: pulseGlow 2.5s infinite alternate ease-in-out;
+        }
+
+        @keyframes pulseGlow {
+            0% {
+                box-shadow: 0 0 10px rgba(224, 180, 55, 0.3);
+                transform: scale(1);
+            }
+            100% {
+                box-shadow: 0 0 25px rgba(224, 180, 55, 0.7);
+                transform: scale(1.05);
+            }
+        }
+
+        .logo-img-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo-text span.brand {
+            font-size: 28px;
+            font-weight: 800;
+            background: linear-gradient(to left, #e0b437, #f5d36a);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            line-height: 1.1;
+        }
+
+        .logo-text span.sub-brand {
+            font-size: 13px;
+            color: var(--muted);
+            font-weight: 400;
+        }
+
+        /* ===== CENTER NAV ===== */
+        .nav-center {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 12px 35px;
+            border-radius: 14px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            padding: 10px 22px;
+            border-radius: 25px;
+            color: #b9bfd6;
+            font-size: 15px;
+            transition: all .3s ease;
+        }
+
+        /* Hover */
+        .nav-links a:hover {
+            background: rgba(255, 255, 255, 0.08);
+            color: #fff;
+        }
+
+        /* Active */
+        .nav-links a.active {
+            background: #e0b437;
+            color: #000;
+            font-weight: 700;
+            box-shadow: 0 0 20px rgba(224, 180, 55, 0.4);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* ===== HERO ===== */
+        .hero {
+            position: relative;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            overflow: hidden;
+            background: #0b0f1f;
+        }
+
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 30% 20%, rgba(255, 215, 0, 0.08), transparent 40%), radial-gradient(circle at 80% 70%, rgba(0, 0, 255, 0.08), transparent 50%), linear-gradient(to bottom, #10142a 0%, #0b0f1f 70%);
+            z-index: 0;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 900px;
+            padding: 20px;
+        }
+
+        .badge {
+            display: inline-block;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            padding: 6px 18px;
+            border-radius: 20px;
+            font-size: 14px;
+            color: #e0b437;
+            background: rgba(255, 255, 255, 0.03);
+            margin-bottom: 30px;
+        }
+
+        .title {
+            font-family: "Times New Roman", serif;
+            font-size: 120px;
+            font-weight: 700;
+            color: #eaeaea;
+            letter-spacing: 3px;
+            margin-bottom: 25px;
+        }
+
+        .subtitle {
+            font-size: 20px;
+            color: #b9bfd6;
+            margin-bottom: 40px;
+            line-height: 1.8;
+        }
+
+        .main-btn {
+            background: #e0b437;
+            color: #000;
+            border: none;
+            padding: 18px 50px;
+            border-radius: 50px;
+            font-size: 18px;
+            font-weight: 700;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            transition: 0.3s;
+        }
+
+        .main-btn:hover {
+            background: #f2c84b;
+            transform: scale(1.05);
+        }
+
+        .scroll {
+            margin-top: 60px;
+            font-size: 14px;
+            color: #999;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .scroll .line {
+            width: 1px;
+            height: 50px;
+            background: linear-gradient(to bottom, #e0b437, transparent);
+        }
+
+        /* ===== FEATURES ===== */
+        .features {
+            padding: 120px 70px;
+        }
+
+        .features-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 70px;
+        }
+
+        .features-title {
+            text-align: right;
+        }
+
+        .line {
+            width: 40px;
+            height: 2px;
+            background: var(--gold);
+            margin-bottom: 10px;
+        }
+
+        .features-title h2 {
+            font-size: 42px;
+        }
+
+        .features-desc {
+            max-width: 420px;
+            color: var(--muted);
+            font-size: 18px;
+        }
+
+        /* ===== CARDS ===== */
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 40px;
+        }
+
+        .card {
+            background: var(--card);
+            border-radius: 25px;
+            padding: 25px;
+            position: relative;
+            transition: .4s;
+        }
+
+        .card:hover {
+            transform: translateY(-10px)
+        }
+
+        .star {
+            position: absolute;
+            top: 18px;
+            right: 18px;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, .08);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+        }
+
+        .card img {
+            width: 100%;
+            border-radius: 18px;
+            margin-bottom: 25px;
+        }
+
+        .card h3 {
+            font-size: 22px;
+            margin-bottom: 15px;
+            transition: .3s;
+        }
+
+        .card:hover h3 {
+            color: var(--gold)
+        }
+
+        .card p {
+            color: var(--muted);
+            line-height: 1.7;
+        }
+
+        /* ===== COMMUNITY ===== */
+        .community {
+            padding: 120px 20px;
+            text-align: center;
+            background: linear-gradient(to bottom, #0b0f1f 0%, #0e1330 60%, #0a1026 100%);
+        }
+
+        .community h2 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            font-weight: 800;
+        }
+
+        .community span {
+            color: #e0b437;
+        }
+
+        .community p {
+            font-size: 20px;
+            color: #b9bfd6;
+            max-width: 700px;
+            margin: auto;
+        }
+
+        /* ===== CARDS SECTION ===== */
+        .cards-section {
+            padding: 120px 70px;
+            background: linear-gradient(to bottom, #0a1026 0%, #070b18 100%);
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .cards-section .card {
+            background: var(--card);
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            transition: all 0.3s ease;
+        }
+
+        .cards-section .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .cards-section .card-icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+            display: inline-block;
+            background: rgba(224, 180, 55, 0.1);
+            padding: 15px;
+            border-radius: 15px;
+        }
+
+        .cards-section .card h3 {
+            font-size: 24px;
+            color: var(--text);
+            margin-bottom: 15px;
+        }
+
+        .cards-section .card p {
+            font-size: 16px;
+            color: var(--muted);
+            line-height: 1.6;
+        }
+
+        .cards-section .hover-border {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 20px;
+            border: 2px solid transparent;
+            background: linear-gradient(45deg, #e0b437, #f5d36a) border-box;
+            -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .cards-section .card:hover .hover-border {
+            opacity: 1;
+        }
+
+
+        /* ===== NEW FOOTER STYLE ===== */
+
+        .site-footer {
+            padding: 80px 50px 30px;
+            background: linear-gradient(to bottom, #0a1026 0%, #070b18 100%);
+            border-top: 1px solid rgba(224, 180, 55, 0.3);
+            box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.5);
+            color: var(--muted);
+            font-size: 15px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 50px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-column {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .footer-title {
+            color: var(--gold);
+            font-size: 22px;
+            font-weight: 800;
+            margin-bottom: 5px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 0; /* Arabic RTL */
+            width: 40px;
+            height: 2px;
+            background: var(--gold);
+            border-radius: 2px;
+        }
+
+        .footer-column p {
+            line-height: 1.8;
+            color: #aab0c5;
+        }
+
+        .footer-links {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .footer-links li a {
+            color: #aab0c5;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .footer-links li a:hover {
+            color: var(--gold);
+            transform: translateX(-5px); /* Move left in RTL */
+        }
+
+        .footer-bottom {
+            margin-top: 60px;
+            padding-top: 25px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .footer-bottom p {
+            color: #7b839e;
+            font-size: 14px;
+            margin: 0;
+        }
+        
+        @media (max-width: 768px) {
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar fade-in">
+        <a href="index.html" class="logo">
+            <div class="logo-img-container">
+                <img src="https://static.wixstatic.com/media/b0ab01_95cbe4acde544efcb8900e3d874cf8d2~mv2.png/v1/fill/w_40,h_40,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/b0ab01_95cbe4acde544efcb8900e3d874cf8d2~mv2.png"
+                    alt="Shining Logo">
+            </div>
+            <div class="logo-text">
+                <span class="brand">Shining</span>
+                <span class="sub-brand">كلية القاسمي</span>
+            </div>
+        </a>
+        <div class="nav-center">
+            <ul class="nav-links">
+                <li><a href="index.html" class="active">الرئيسية</a></li>
+                <li><a href="interview.html">المقابلات</a></li>
+                <li><a href="focus.html">التركيز والإيمان</a></li>
+                <li><a href="student-compass.html">بوصلة الطالب</a></li>
+                <li><a href="student-area.html">منطقة الطالب</a></li>
+            </ul>
+        </div>
+    </nav>
+    <section class="hero">
+        <div class="hero-bg"></div>
+
+        <div class="hero-content slide-up">
+            <div class="badge">
+                منصة طلاب كلية القاسمي
+            </div>
+
+            <h1 class="title">Shining</h1>
+
+            <p class="subtitle">
+                بوابتك الشاملة للحياة الجامعية. اكتشف، تواصل، وتألق في رحلتك الأكاديمية.
+            </p>
+
+            <button class="main-btn">
+                <span>استكشف المنصة</span>
+                <span class="arrow">←</span>
+            </button>
+
+            <div class="scroll">
+                تصفح المزيد
+                <div class="line"></div>
+            </div>
+        </div>
+    </section>
+    <section class="features">
+        <div class="features-top">
+            <div class="features-title">
+                <div class="line"></div>
+                <h2>ميزات المنصة</h2>
+            </div>
+            <div class="features-desc">
+                مجموعة متكاملة من الأدوات الرقمية المصممة لتسهيل حياتك الجامعية وتعزيز تجربتك التعليمية.
+            </div>
+        </div>
+
+        <div class="cards">
+            <div class="card">
+                <div class="star">★</div>
+                <img src="https://static.wixstatic.com/media/b0ab01_ffb5bc3e0d4a41b4a52ccd86550d912c~mv2.png">
+                <h3>التقويم التعليمي</h3>
+                <p>ابق على اطلاع دائم بجميع الفعاليات القادمة وورش العمل.</p>
+            </div>
+
+            <div class="card">
+                <div class="star">★</div>
+                <img src="https://static.wixstatic.com/media/b0ab01_f75be7006b34453f9732d22441cc8dea~mv2.png">
+                <h3>إرشاد ومتابعة</h3>
+                <p>اطلع على مقابلات وتجارب طلاب من مختلف التخصصات.</p>
+            </div>
+
+            <div class="card">
+                <div class="star">★</div>
+                <img src="https://static.wixstatic.com/media/b0ab01_c453a559cbaf42929317648ae731f787~mv2.png">
+                <h3>دليل الطالب الشامل</h3>
+                <p>كل المعلومات والموارد التي يحتاجها الطالب في مكان واحد.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="community">
+        <h2><span>مجتمع</span> أكاديمي نابض بالحياة</h2>
+        <p>انضم إلى نخبة من الطلاب المتميزين وشارك في بناء مستقبل مشرق</p>
+    </section>
+
+    <footer class="site-footer fade-in">
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3 class="footer-title">Shining</h3>
+                <p>منصة طلاب كلية القاسمي للحياة الجامعية والتميز الأكاديمي، نصنع المستقبل معاً.</p>
+            </div>
+
+            <div class="footer-column">
+                <h3 class="footer-title">تواصل معنا</h3>
+                <p>باقة الغربية - إسرائيل</p>
+                <p style="direction: ltr; text-align: right;">04-628-6888</p>
+                <p>info@qsm.ac.il</p>
+            </div>
+
+            <div class="footer-column">
+                <h3 class="footer-title">روابط</h3>
+                <ul class="footer-links">
+                    <li><a href="interview.html">المقابلات</a></li>
+                    <li><a href="focus.html">التركيز والإيمان</a></li>
+                    <li><a href="student-compass.html">بوصلة الطالب</a></li>
+                    <li><a href="student-area.html">منطقة الطالب</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>© 2026 Shining - جميع الحقوق محفوظة</p>
+            <p>Founders: Mohamad Egbaria &amp; Ahmad Khaba</p>
+        </div>
+    </footer>
+</body>
+
+</html>
